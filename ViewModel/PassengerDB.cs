@@ -40,50 +40,69 @@ namespace ViewModel
         }
 
         //שלב ב
-        //protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"DELETE FROM PersonTbl where id=@pid";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@pid", c.Id));
-        //    }
-        //}
-        //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"Insert INTO  PersonTbl (PersonName) VALUES (@cName)";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
-        //    }
-        //}
-
-        protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
+        protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
             Passenger c = entity as Passenger;
             if (c != null)
             {
-                string sqlStr = $"UPDATE PassengerTBL  WHERE Id=@id";
+                string sqlStr = $"DELETE FROM PassengerTBL where id=@pid";
 
                 command.CommandText = sqlStr;
-                
+                command.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            }
+        }
+        public override void Delete(BaseEntity entity)
+        {
+            BaseEntity reqEntity = this.NewEntity();
+            if (entity != null && entity.GetType() == reqEntity.GetType())
+            {
+                deleted.Add(new ChangeEntity(this.CreateDeletedSQL, entity));
+               //  deleted.Add(new ChangeEntity(base.CreateDeletedSQL, entity));
+               // when i delete a passenger the person wont be deleted
+            }
+        }
+        protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            Passenger c = entity as Passenger;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO  PassengerTBL (Id) VALUES (@id)";
+
+                command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@id", c.Id));
             }
+        }
+
+        //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
+        //{
+        //    Passenger c = entity as Passenger;
+        //    if (c != null)
+        //    {
+        //        string sqlStr = $"UPDATE PassengerTBL set WHERE Id=@id";
+
+        //        command.CommandText = sqlStr;
+
+        //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
+        //    }
+        //}
+        public override void Insert(BaseEntity entity)
+        {
+            BaseEntity reqEntity = this.NewEntity();
+            if (entity != null && entity.GetType() == reqEntity.GetType())
+            {
+                inserted.Add(new ChangeEntity(base.CreateInsertdSQL, entity));
+                inserted.Add(new ChangeEntity(this.CreateInsertdSQL, entity));
+            }//אין מה לשנות במחלקה אלא בפרסון ולכן אפשר לבטל את הפעולה השנייה והשורה הראשונה שנוגעות למחלקה פסנגר
         }
         public override void Update(BaseEntity entity)
         {
             Passenger student = entity as Passenger;
             if (student != null)
             {
-                updated.Add(new ChangeEntity(this.CreateUpdatedSQL, entity));
+              //  updated.Add(new ChangeEntity(this.CreateUpdatedSQL, entity));
                 updated.Add(new ChangeEntity(base.CreateUpdatedSQL, entity));
             }
-        }
+        }//אין מה לשנות במחלקה אלא בפרסון ולכן אפשר לבטל את הפעולה השנייה והשורה הראשונה שנוגעות למחלקה פסנגר
 
     }
 }

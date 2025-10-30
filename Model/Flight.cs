@@ -8,6 +8,8 @@ namespace Model
 {
     public class Flight:BaseEntity
     {
+        private bool isRelevant;
+        public bool IsRelevant { get; set; }
         private DateTime takeOffTime;
         public DateTime TakeOffTime { get=>takeOffTime; set => takeOffTime = value; }
         private Planes planeType;

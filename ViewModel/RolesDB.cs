@@ -40,12 +40,25 @@ namespace ViewModel
 
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Roles c = entity as Roles;
+            if (c != null)
+            {
+                string sqlStr = $"DELETE FROM RolesTBL WHERE id=@pid";
+
+                cmd.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            }
         }
 
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Roles c = entity as Roles;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO RolesTBL (RoleName) VALUES (@roleName)";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@roleName", c.RoleName));
+            }
         }
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)

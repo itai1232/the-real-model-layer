@@ -40,13 +40,17 @@ namespace ViewModel
 
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Countries c = entity as Countries;
+            if (c != null)
+            {
+                string sqlStr = $"DELETE FROM CountriesTBL WHERE id=@id";
+
+                cmd.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@id", c.Id));
+            }
         }
 
-        protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
-        {
-            throw new NotImplementedException();
-        }
+
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
@@ -57,6 +61,16 @@ namespace ViewModel
                 command.CommandText = sqlStr ;
                 command.Parameters.Add(new OleDbParameter("@CountryName", c.CountryName));
                 command.Parameters.Add(new OleDbParameter("@Id",c.Id));
+            }
+        }
+        protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            Countries c = entity as Countries;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO CountriesTBL (CountryName) VALUES (@CountryName)";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@CountryName", c.CountryName));
             }
         }
     }

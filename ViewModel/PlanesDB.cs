@@ -44,17 +44,46 @@ namespace ViewModel
 
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Planes c = entity as Planes;
+            if (c != null)
+            {
+                string sqlStr = $"DELETE FROM PlanesTBL WHERE id=@pid";
+
+                cmd.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            }
         }
 
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Planes c = entity as Planes;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO PlanesTBL (NumOfSeats,MakeDate,MakerCompany,FlightCompany,IsActive) VALUES (@seats,@makedate,@makecompany,@flightcompany,@status)";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@seats", c.NumOfSeats));
+                command.Parameters.Add(new OleDbParameter("@makedate", c.MakeDate));
+                command.Parameters.Add(new OleDbParameter("@makecompany", c.PlanesMakeCompany.Id));
+                command.Parameters.Add(new OleDbParameter("@flightcompany", c.PlanesFlightCompany.Id));
+                command.Parameters.Add(new OleDbParameter("@status", c.IsPlaneActive));
+            }
         }
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Planes c = entity as Planes;
+            if (c != null)
+            {
+                string sqlStr = $"UPDATE PlanesTBL  SET NumOfSeats=@seats,MakeDate=@make,MakerCompany=@companym,FlightCompany=@companyf,IsActive=@status" +
+                    $" WHERE Id=@Id";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@seats", c.NumOfSeats));
+                command.Parameters.Add(new OleDbParameter("@make", c.MakeDate));
+                command.Parameters.Add(new OleDbParameter("@companym", c.PlanesMakeCompany.Id));
+                command.Parameters.Add(new OleDbParameter("@companyf", c.PlanesFlightCompany.Id));
+                command.Parameters.Add(new OleDbParameter("@status", c.IsPlaneActive));
+                command.Parameters.Add(new OleDbParameter("@Id", c.Id));
+            }
         }
 
         //שלב ב

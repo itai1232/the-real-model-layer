@@ -25,6 +25,7 @@ namespace ViewModel
             pe.DestinationAirport = AirportsDB.SelectById((int)reader["DestinationAirport"]);
             pe.Price = (int)reader["Price"];
             pe.PlaneType = PlanesDB.SelectById((int)reader["PlaneType"]);
+            pe.IsRelevant= (bool)reader["IsRelevant"];
             base.CreateModel(entity);
             return pe;
         }
@@ -44,12 +45,31 @@ namespace ViewModel
 
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Flight c = entity as Flight;
+            if (c != null)
+            {
+                string sqlStr = $"DELETE FROM FlightsTBL WHERE id=@pid";
+
+                cmd.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            }
         }
 
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Flight c = entity as Flight;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO FlightsTBL (TakeoffTime,PlaneType,ArrivalTime,DestinationAirport,CurrentAirport,Price,IsRelevant) VALUES (@takeoff,@planetype,@arrivaltime,@destination,@current,@price,@status)";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@takeoff", c.TakeOffTime));
+                command.Parameters.Add(new OleDbParameter("@planetype", c.PlaneType.Id));
+                command.Parameters.Add(new OleDbParameter("@arrivaltime", c.ArrivalTime));
+                command.Parameters.Add(new OleDbParameter("@destination", c.DestinationAirport.Id));
+                command.Parameters.Add(new OleDbParameter("@current", c.CurrentAirport.Id));
+                command.Parameters.Add(new OleDbParameter("@price", c.Price));
+                command.Parameters.Add(new OleDbParameter("@status", c.IsRelevant));
+            }
         }
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
@@ -57,7 +77,7 @@ namespace ViewModel
             Flight c = entity as Flight;
             if (c != null)
             {
-                string sqlStr = $"UPDATE FlightsTBL  SET TakeoffTime=@takeoff,PlaneType=@planetype,ArrivalTime=@ArrivalTime,DestinationAirport=@Destination,CurrentAirport=@Current,Price=@price" +
+                string sqlStr = $"UPDATE FlightsTBL  SET TakeoffTime=@takeoff,PlaneType=@planetype,ArrivalTime=@ArrivalTime,DestinationAirport=@Destination,CurrentAirport=@Current,Price=@price,IsRelevant=@status" +
                     $" WHERE Id=@Id";
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@takeoff", c.TakeOffTime));
@@ -66,6 +86,7 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@Destination", c.DestinationAirport.Id));
                 command.Parameters.Add(new OleDbParameter("@Current", c.CurrentAirport.Id));
                 command.Parameters.Add(new OleDbParameter("@price", c.Price));
+                command.Parameters.Add(new OleDbParameter("@status", c.IsRelevant));
                 command.Parameters.Add(new OleDbParameter("@Id", c.Id));
             }
         }

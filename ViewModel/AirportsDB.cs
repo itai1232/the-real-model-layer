@@ -40,12 +40,27 @@ namespace ViewModel
 
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Airports c = entity as Airports;
+            if (c != null)
+            {
+                string sqlStr = $"DELETE FROM AirportsTBL WHERE id=@pid";
+
+                cmd.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            }
         }
 
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            Airports c = entity as Airports;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO AirportsTBL (AirportName,AirportCountry) VALUES (@AirportName,@AirportCountry)";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@AirportName", c.AirportName));
+                command.Parameters.Add(new OleDbParameter("@AirportCountry", c.AirPortCountry.Id));
+  
+            }
         }
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)

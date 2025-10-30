@@ -40,12 +40,25 @@ namespace ViewModel
 
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            MakeCompany c = entity as MakeCompany;
+            if (c != null)
+            {
+                string sqlStr = $"DELETE FROM CompanyMakeTBL WHERE id=@pid";
+
+                cmd.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            }
         }
 
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
-            throw new NotImplementedException();
+            MakeCompany c = entity as MakeCompany;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO CompanyMakeTBL (CompanyName) VALUES (@CompanyName)";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@CompanyName", c.MakeCompanyName));
+            }
         }
 
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)

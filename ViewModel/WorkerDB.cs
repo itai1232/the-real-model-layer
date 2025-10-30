@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.OleDb;
 
 namespace ViewModel
 {
@@ -24,7 +25,7 @@ namespace ViewModel
             
             pe.IsWorkerActive = (bool)reader["IsActive"];
             pe.WorkerRole = RolesDB.SelectById((int)reader["IdRole"]);
-            pe.SalaryPerFlightHour = (double)reader["SalaryPerFlightHour"];
+            pe.SalaryPerFlightHour = double.Parse(reader["SalaryPerFlightHour"].ToString());
             base.CreateModel(entity);
             return pe;
         }
@@ -43,40 +44,72 @@ namespace ViewModel
         }
 
         //שלב ב
-        //protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"DELETE FROM PersonTbl where id=@pid";
+        protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            Worker c = entity as Worker;
+            if (c != null)
+            {
+                string sqlStr = $"DELETE FROM WorkerTBL where id=@pid";
 
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@pid", c.Id));
-        //    }
-        //}
-        //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"Insert INTO  PersonTbl (PersonName) VALUES (@cName)";
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@pid", c.Id));
+            }
+        }
+        public override void Delete(BaseEntity entity)
+        {
+            BaseEntity reqEntity = this.NewEntity();
+            if (entity != null && entity.GetType() == reqEntity.GetType())
+            {
+                deleted.Add(new ChangeEntity(this.CreateDeletedSQL, entity));
+                deleted.Add(new ChangeEntity(base.CreateDeletedSQL, entity));
+            }
+        }
+        protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            Worker c = entity as Worker;
+            if (c != null)
+            {
+                string sqlStr = $"Insert INTO  WorkerTBL (Id,IdRole,SalaryPerFlightHour,IsActive) VALUES (@id,@role,@salary,@status)";
 
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
-        //    }
-        //}
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@id", c.Id));
+                command.Parameters.Add(new OleDbParameter("@role", c.WorkerRole.Id));
+                command.Parameters.Add(new OleDbParameter("@salary", c.SalaryPerFlightHour));
+                command.Parameters.Add(new OleDbParameter("@status", c.IsWorkerActive));
+            }
+        }
+        public override void Insert(BaseEntity entity)
+        {
+            BaseEntity reqEntity = this.NewEntity();
+            if (entity != null && entity.GetType() == reqEntity.GetType())
+            {
+                inserted.Add(new ChangeEntity(base.CreateInsertdSQL, entity));
+                inserted.Add(new ChangeEntity(this.CreateInsertdSQL, entity));
+            }
+        }
 
-        //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    Person c = entity as Person;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"UPDATE PersonTbl  SET PersonName=@cName WHERE ID=@id";
+        protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            Worker c = entity as Worker;
+            if (c != null)
+            {
+                string sqlStr = $"UPDATE WorkerTBL  SET IdRole=@role, SalaryPerFlightHour=@salary,IsActive=@status WHERE ID=@id";
 
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.PersonName));
-        //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
-        //    }
-        //}
+                command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@role", c.WorkerRole.Id));
+                command.Parameters.Add(new OleDbParameter("@salary", c.SalaryPerFlightHour));
+                command.Parameters.Add(new OleDbParameter("@status", c.IsWorkerActive));
+                command.Parameters.Add(new OleDbParameter("@id", c.Id));
+            }
+        }
+        public override void Update(BaseEntity entity)
+        {
+            Worker student = entity as Worker;
+            if (student != null)
+            {
+                updated.Add(new ChangeEntity(this.CreateUpdatedSQL, entity));
+                updated.Add(new ChangeEntity(base.CreateUpdatedSQL, entity));
+            }
+        }
     }
 }
