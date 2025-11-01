@@ -356,6 +356,13 @@ using ViewModel;
 //Console.WriteLine($"{x} rows were deleted");
 //Delete Person WORKS
 
+//PlanesDB cdb = new();
+//PlanesList cList = cdb.SelectAll();
+//cdb.Delete(cList[cList.Count - 1]);
+//int x = cdb.SaveChanges();
+//Console.WriteLine($"{x} rows were deleted");
+//Delete Planes WORKS
+
 //PassengerDB cdb = new();
 //PassengerList cList = cdb.SelectAll();
 //cdb.Delete(cList[cList.Count - 1]);
@@ -369,3 +376,4 @@ using ViewModel;
 //int x = cdb.SaveChanges();
 //Console.WriteLine($"{x} rows were deleted");
 //Delete Worker WORKS
+
