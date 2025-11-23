@@ -14,8 +14,8 @@ namespace ViewModel
         {
             command.CommandText = $"SELECT   " +
                 $"     PersonTBL.LastName, PersonTBL.Id, PersonTBL.FirstName, PersonTBL.Telephone," +
-                $" PersonTBL.Email, PersonTBL.Country, WorkerTBL.IdRole, WorkerTBL.IsActive, WorkerTBL.SalaryPerFlightHour\r\nFROM      " +
-                $"      (WorkerTBL INNER JOIN\r\n                         PersonTBL ON WorkerTBL.Id = PersonTBL.Id)";
+                $" PersonTBL.Email, PersonTBL.Country, WorkerTBL.IdRole, WorkerTBL.IsActive, WorkerTBL.SalaryPerFlightHour FROM      " +
+                $"      (WorkerTBL INNER JOIN                         PersonTBL ON WorkerTBL.Id = PersonTBL.Id)";
             WorkerList pList = new WorkerList(base.Select());
             return pList;
         }

@@ -14,7 +14,7 @@ namespace ViewModel
         {
             command.CommandText = $"SELECT    " +
                 $"    PersonTBL.Id, PersonTBL.LastName, PersonTBL.FirstName, PersonTBL.Telephone, " +
-                $"PersonTBL.Email, PersonTBL.Country\r\nFROM            (PersonTBL INNER JOIN\r\n                         PassengerTBL ON PersonTBL.Id = PassengerTBL.Id)";
+                $"PersonTBL.Email, PersonTBL.Country FROM            (PersonTBL INNER JOIN                         PassengerTBL ON PersonTBL.Id = PassengerTBL.Id)";
             PassengerList pList = new PassengerList(base.Select());
             return pList;
         }
@@ -57,8 +57,8 @@ namespace ViewModel
             if (entity != null && entity.GetType() == reqEntity.GetType())
             {
                 deleted.Add(new ChangeEntity(this.CreateDeletedSQL, entity));
-               //  deleted.Add(new ChangeEntity(base.CreateDeletedSQL, entity));
-               // when i delete a passenger the person wont be deleted
+                 deleted.Add(new ChangeEntity(base.CreateDeletedSQL, entity));
+               // when i delete a passenger the person will be deleted
             }
         }
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
@@ -92,7 +92,7 @@ namespace ViewModel
             {
                 inserted.Add(new ChangeEntity(base.CreateInsertdSQL, entity));
                 inserted.Add(new ChangeEntity(this.CreateInsertdSQL, entity));
-            }//אין מה לשנות במחלקה אלא בפרסון ולכן אפשר לבטל את הפעולה השנייה והשורה הראשונה שנוגעות למחלקה פסנגר
+            }
         }
         public override void Update(BaseEntity entity)
         {

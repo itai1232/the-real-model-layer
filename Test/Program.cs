@@ -82,14 +82,13 @@ using ViewModel;
 //{
 //    Console.WriteLine(c.FirstName + " " + c.SalaryPerFlightHour);
 //}
-//Worker--NOT WORKS
+//Worker-- WORKS
 
 //CountriesDB cdb = new();
 //CountriesList cList = cdb.SelectAll();
 //foreach (Countries c in cList)
 //    Console.WriteLine(c.CountryName);
-
-//Countries countryToUpdate = cList[0];
+//Countries countryToUpdate = cList[cList.Count - 1];
 //countryToUpdate.CountryName = "United States";
 //cdb.Update(countryToUpdate);
 //int x = cdb.SaveChanges();
@@ -100,7 +99,7 @@ using ViewModel;
 //FlightCompanyList cList = cdb.SelectAll();
 //foreach (FlightCompany c in cList)
 //    Console.WriteLine(c.FlightCompanyName);
-//FlightCompany companyToUpdate = cList[0];
+//FlightCompany companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.FlightCompanyName = "RyanAir";
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -111,7 +110,7 @@ using ViewModel;
 //MakeCompanyList cList = cdb.SelectAll();
 //foreach (MakeCompany c in cList)
 //    Console.WriteLine(c.MakeCompanyName);
-//MakeCompany companyToUpdate = cList[0];
+//MakeCompany companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.MakeCompanyName = "AirBus";
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -122,7 +121,7 @@ using ViewModel;
 //RolesList cList = cdb.SelectAll();
 //foreach (Roles c in cList)
 //    Console.WriteLine(c.RoleName);
-//Roles companyToUpdate = cList[0];
+//Roles companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.RoleName = "Pilot";
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -132,8 +131,8 @@ using ViewModel;
 //AirportsDB cdb = new();
 //AirportsList cList = cdb.SelectAll();
 //foreach (Airports c in cList)
-//    Console.WriteLine(c.AirPortCountry.CountryName+"  "+c.AirportName);
-//Airports companyToUpdate = cList[0];
+//    Console.WriteLine(c.AirPortCountry.CountryName + "  " + c.AirportName);
+//Airports companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.AirportName = "ATL";
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -144,7 +143,7 @@ using ViewModel;
 //PersonList cList = cdb.SelectAll();
 //foreach (Person c in cList)
 //    Console.WriteLine(c.PersonCountry.CountryName + "  " + c.FirstName);
-//Person companyToUpdate = cList[0];
+//Person companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.FirstName = "Aviel";
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -155,7 +154,7 @@ using ViewModel;
 //FlightList cList = cdb.SelectAll();
 //foreach (Flight c in cList)
 //    Console.WriteLine(c.PlaneType.Id + "  " + c.TakeOffTime);
-//Flight companyToUpdate = cList[0];
+//Flight companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.Price = 1000;
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -167,7 +166,7 @@ using ViewModel;
 //InvitationsList cList = cdb.SelectAll();
 //foreach (Invitations c in cList)
 //    Console.WriteLine(c.InvitationPassenger.FirstName);
-//Invitations companyToUpdate = cList[0];
+//Invitations companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.InvitationFlight.Id = 1;
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -178,7 +177,7 @@ using ViewModel;
 //PassengerList cList = cdb.SelectAll();
 //foreach (Passenger c in cList)
 //    Console.WriteLine(c.FirstName);
-//Passenger companyToUpdate = cList[0];
+//Passenger companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.FirstName = "Yoni";
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -189,7 +188,7 @@ using ViewModel;
 //PlanesList cList = cdb.SelectAll();
 //foreach (Planes c in cList)
 //    Console.WriteLine(c.NumOfSeats);
-//Planes companyToUpdate = cList[0];
+//Planes companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.NumOfSeats = "200";
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -200,7 +199,7 @@ using ViewModel;
 //WorkerList cList = cdb.SelectAll();
 //foreach (Worker c in cList)
 //    Console.WriteLine(c.FirstName);
-//Worker companyToUpdate = cList[0];
+//Worker companyToUpdate = cList[cList.Count - 1];
 //companyToUpdate.SalaryPerFlightHour = 100;
 //cdb.Update(companyToUpdate);
 //int x = cdb.SaveChanges();
@@ -208,7 +207,7 @@ using ViewModel;
 //Update Worker WORKS
 
 //CountriesDB cdb = new();
-//Countries c1 = new Countries() { CountryName="sfdsgf"};
+//Countries c1 = new Countries() { CountryName = "sfdsgf" };
 //cdb.Insert(c1);
 //cdb.SaveChanges();
 //CountriesList cList = cdb.SelectAll();
@@ -253,7 +252,7 @@ using ViewModel;
 //CountriesDB cdb = new();
 //CountriesList cList = cdb.SelectAll();
 //PersonDB a1 = new();
-//a1.Insert(new Person { LastName = "sssdsss", FirstName="ahshdh",Telephone="0504937374",Email="random@gmail.com", PersonCountry = cList[0] });
+//a1.Insert(new Person { LastName = "sssdsss", FirstName = "ahshdh", Telephone = "0504937374", Email = "random@gmail.com", PersonCountry = cList[0] });
 //a1.SaveChanges();
 // Insert Person WORKS
 
@@ -262,7 +261,7 @@ using ViewModel;
 //PlanesDB cdb2 = new();
 //PlanesList cList2 = cdb2.SelectAll();
 //FlightDB a1 = new();
-//a1.Insert(new Flight { TakeOffTime = DateTime.Parse("15/08/2025 12:00"), PlaneType = cList2[0], ArrivalTime = DateTime.Parse("15/08/2025 16:00"), DestinationAirport = cList[0], CurrentAirport = cList[1],Price=500,IsRelevant=true });
+//a1.Insert(new Flight { TakeOffTime = DateTime.Parse("15/08/2025 12:00"), PlaneType = cList2[0], ArrivalTime = DateTime.Parse("15/08/2025 16:00"), DestinationAirport = cList[0], CurrentAirport = cList[1], Price = 500, IsRelevant = true });
 //a1.SaveChanges();
 // Insert Flights WORKS
 
@@ -271,7 +270,7 @@ using ViewModel;
 //FlightCompanyDB cdb2 = new();
 //FlightCompanyList cList2 = cdb2.SelectAll();
 //PlanesDB a1 = new();
-//a1.Insert(new Planes {  NumOfSeats="201" , MakeDate = DateTime.Parse("15/08/2000"), PlanesMakeCompany = cList[0], PlanesFlightCompany = cList2[1], IsPlaneActive = true });
+//a1.Insert(new Planes { NumOfSeats = "201", MakeDate = DateTime.Parse("15/08/2000"), PlanesMakeCompany = cList[0], PlanesFlightCompany = cList2[1], IsPlaneActive = true });
 //a1.SaveChanges();
 // Insert Planes WORKS
 
@@ -302,7 +301,7 @@ using ViewModel;
 
 //CountriesDB cdb = new();
 //CountriesList cList = cdb.SelectAll();
-//cdb.Delete(cList[cList.Count-1]);
+//cdb.Delete(cList[cList.Count - 1]);
 //int x = cdb.SaveChanges();
 //Console.WriteLine($"{x} rows were deleted");
 //Delete Countries WORKS
